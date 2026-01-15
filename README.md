@@ -9,11 +9,15 @@ This template has been customized for **David303ttl**. To adapt it for your own 
 1. Clone this repository excluding the `.git` directory (e.g., `git clone --depth 1 <repo-url> my-project && rm -rf my-project/.git`)
 2. Update the header in [scripts/fix_file_comments.pl](scripts/fix_file_comments.pl) with your info
 3. Update the prefix in [scripts/fix_header_guards.pl](scripts/fix_header_guards.pl) for your project
-4. Run the fix script to update namespaces:
+4. Run the fix scripts:
    ```bash
+   # First, run header guards and file comments
    ./scripts/fix_code.sh
+
+   # Then, run the namespace script with your desired namespaces
+   perl scripts/fix_namespace.pl yourname yourproject
    ```
-   This will run all three fix scripts and prompt you for your namespace choices.
+   Replace `yourname` and `yourproject` with your desired namespace values (e.g., `perl scripts/fix_namespace.pl johndoe mysynth`).
 5. Update project name and URLs in:
    - [CMakeLists.txt](CMakeLists.txt) - project name, PRODUCT_NAME, plugin ID
    - [.github/workflows/build-plugin.yml](.github/workflows/build-plugin.yml) - TARGET_NAME, PLUGIN_NAME, repository owner
