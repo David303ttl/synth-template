@@ -1,0 +1,121 @@
+/*
+ * Synth Template
+ *
+ * Based on SideQuest Starting Point by baconpaul, adopted by David303ttl.
+ *
+ * Copyright 2024-2025, Paul Walker and contributors.
+ * Copyright 2026, Pawel Marczak
+ *
+ * This source repo is released under the MIT license, but has
+ * GPL3 dependencies, as such the combined work will be
+ * released under GPL3.
+ *
+ * The source code and license are at https://github.com/David303ttl/synth-template
+ * Original template at https://github.com/baconpaul/sidequest-startingpoint
+ */
+
+#include "configuration.h"
+#include "sst/plugininfra/misc_platform.h"
+#include "sst/plugininfra/version_information.h"
+#include "clap/plugin-clap-entry-impl.h"
+#include "clap/plugin.h"
+#include "clapwrapper/vst3.h"
+
+#include <iostream>
+#include <cstring>
+#include <string.h>
+#include <clap/clap.h>
+
+namespace david303ttl {
+namespace synthtemplate {
+
+extern const clap_plugin *makePlugin(const clap_host *, bool);
+
+/*
+ * Clap Factory API
+ */
+const clap_plugin_descriptor *getDescriptor()
+{
+    static const char *features[] = {CLAP_PLUGIN_FEATURE_INSTRUMENT,
+                                     CLAP_PLUGIN_FEATURE_SYNTHESIZER, "Free and Open Source",
+                                     "Subtractive", nullptr};
+
+    static char versionNum[1024];
+
+    static clap_plugin_descriptor desc = {
+        CLAP_VERSION,
+        "org.david303ttl.synthtemplate",
+        PRODUCT_NAME,
+        "David303ttl",
+        "https://github.com/David303ttl",
+        "",
+        "",
+        sst::plugininfra::VersionInformation::project_version_and_hash,
+        "Run of the mill subtractive synth. Almost.",
+        &features[0]};
+    return &desc;
+}
+
+uint32_t clap_get_plugin_count(const clap_plugin_factory *) { return 1; };
+const clap_plugin_descriptor *clap_get_plugin_descriptor(const clap_plugin_factory *f, uint32_t w)
+{
+    if (w == 0)
+    {
+        return getDescriptor();
+    }
+
+    return nullptr;
+}
+
+const clap_plugin *clap_create_plugin(const clap_plugin_factory *f, const clap_host *host,
+                                      const char *plugin_id)
+{
+    if (strcmp(plugin_id, getDescriptor()->id) == 0)
+    {
+        return makePlugin(host, false);
+    }
+
+    return nullptr;
+}
+
+/*
+ * Clap Wrapper VST3 Factory API
+ */
+static const clap_plugin_info_as_vst3 *clap_get_vst3_info(const clap_plugin_factory_as_vst3 *f,
+                                                          uint32_t index)
+{
+    return nullptr;
+}
+
+const void *get_factory(const char *factory_id)
+{
+    if (strcmp(factory_id, CLAP_PLUGIN_FACTORY_ID) == 0)
+    {
+        static const struct clap_plugin_factory synth_clap_factory = {
+            clap_get_plugin_count,
+            clap_get_plugin_descriptor,
+            clap_create_plugin,
+        };
+        return &synth_clap_factory;
+    }
+    if (strcmp(factory_id, CLAP_PLUGIN_FACTORY_INFO_VST3) == 0)
+    {
+        static const struct clap_plugin_factory_as_vst3 synth_vst3_factory = {
+            "David303ttl", "https://github.com/David303ttl", "", clap_get_vst3_info};
+
+        return &synth_vst3_factory;
+    }
+
+    return nullptr;
+}
+bool clap_init(const char *p)
+{
+    // sst::plugininfra::misc_platform::allocateConsole();
+    DEBUG_LOG("Initializing Synth Template "
+          << sst::plugininfra::VersionInformation::project_version_and_hash << " / "
+          << sst::plugininfra::VersionInformation::git_implied_display_version);
+    return true;
+}
+void clap_deinit() {}
+} // namespace synthtemplate
+} // namespace david303ttl
