@@ -30,8 +30,7 @@
 #include "sst/basic-blocks/modulators/DAHDSREnvelope.h"
 #include "sst/plugininfra/patch-support/patch_base.h"
 
-namespace david303ttl {
-namespace synthtemplate {
+namespace david303ttl::synthtemplate {
 namespace scpu = sst::cpputils;
 namespace pats = sst::plugininfra::patch_support;
 using md_t = sst::basic_blocks::params::ParamMetaData;
@@ -154,6 +153,5 @@ struct Patch : pats::PatchBase<Patch, Param>
     float migrateParamValueFromVersion(Param *p, float value, uint32_t version);
     void migratePatchFromVersion(uint32_t version);
 };
-} // namespace synthtemplate
-} // namespace david303ttl
+} // namespace david303ttl::synthtemplate
 #endif // PATCH_H

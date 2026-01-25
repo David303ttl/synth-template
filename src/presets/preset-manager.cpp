@@ -25,9 +25,7 @@
 
 CMRC_DECLARE(synth_patches);
 
-namespace david303ttl {
-namespace synthtemplate {
-namespace presets {
+namespace david303ttl::synthtemplate::presets {
 
 PresetManager::PresetManager(const clap_host_t *ch) : clapHost(ch)
 {
@@ -287,6 +285,4 @@ void PresetManager::sendEntirePatchToAudio(Patch &patch, Engine::mainToAudioQueu
     }
 }
 
-} // namespace presets
-} // namespace synthtemplate
-} // namespace david303ttl
+} // namespace david303ttl::synthtemplate::presets

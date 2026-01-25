@@ -17,12 +17,10 @@
 #ifndef DAVID303TTL_SYNTH_CLAP_PLUGIN_CLAP_ENTRY_IMPL_H
 #define DAVID303TTL_SYNTH_CLAP_PLUGIN_CLAP_ENTRY_IMPL_H
 
-namespace david303ttl {
-namespace synthtemplate {
+namespace david303ttl::synthtemplate {
 const void *get_factory(const char *factory_id);
 bool clap_init(const char *p);
 void clap_deinit();
-} // namespace synthtemplate
-} // namespace david303ttl
+} // namespace david303ttl::synthtemplate
 
 #endif

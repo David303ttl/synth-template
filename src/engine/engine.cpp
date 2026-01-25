@@ -21,8 +21,7 @@
 
 #include "libMTSClient.h"
 
-namespace david303ttl {
-namespace synthtemplate {
+namespace david303ttl::synthtemplate {
 
 int debugLevel{0};
 
@@ -389,5 +388,4 @@ void Engine::onMainThread()
     }
 }
 
-} // namespace synthtemplate
-} // namespace david303ttl
+} // namespace david303ttl::synthtemplate

@@ -28,9 +28,7 @@
 
 #include "plugin-editor.h"
 
-namespace david303ttl {
-namespace synthtemplate {
-namespace ui {
+namespace david303ttl::synthtemplate::ui {
 struct PatchContinuous : jdat::Continuous
 {
     PluginEditor &editor;
@@ -279,7 +277,5 @@ void createRescaledComponent(PluginEditor &e, P &panel, const Param &parm, std::
     e.componentByID[id] = juce::Component::SafePointer<juce::Component>(cm.get());
 }
 
-} // namespace ui
-} // namespace synthtemplate
-} // namespace david303ttl
+} // namespace david303ttl::synthtemplate::ui
 #endif // PATCH_CONTINUOUS_H

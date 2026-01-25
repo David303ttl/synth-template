@@ -28,9 +28,7 @@
 #include <set>
 #include <string>
 
-namespace david303ttl {
-namespace synthtemplate {
-namespace presets {
+namespace david303ttl::synthtemplate::presets {
 struct PresetManager
 {
     fs::path userPath;
@@ -67,7 +65,5 @@ struct PresetManager
                                        const std::string &name, const clap_host_t *,
                                        const clap_host_params_t *p = nullptr);
 };
-} // namespace presets
-} // namespace synthtemplate
-} // namespace david303ttl
+} // namespace david303ttl::synthtemplate::presets
 #endif // PRESET_MANAGER_H

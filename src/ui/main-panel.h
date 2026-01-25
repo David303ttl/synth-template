@@ -21,9 +21,7 @@
 #include "patch-data-bindings.h"
 #include "plugin-editor.h"
 
-namespace david303ttl {
-namespace synthtemplate {
-namespace ui {
+namespace david303ttl::synthtemplate::ui {
 struct MainPanel : sst::jucegui::components::NamedPanel
 {
     MainPanel(PluginEditor &editor);
@@ -37,7 +35,5 @@ struct MainPanel : sst::jucegui::components::NamedPanel
     void beginEdit() {}
     void endEdit() {}
 };
-} // namespace ui
-} // namespace synthtemplate
-} // namespace david303ttl
+} // namespace david303ttl::synthtemplate::ui
 #endif // MAIN_PANEL_H

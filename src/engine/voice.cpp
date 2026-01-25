@@ -19,8 +19,7 @@
 #include "engine/patch.h"
 #include "libMTSClient.h"
 
-namespace david303ttl {
-namespace synthtemplate {
+namespace david303ttl::synthtemplate {
 
 namespace scpu = sst::cpputils;
 
@@ -34,5 +33,4 @@ void Voice::setupPortaTo(uint16_t newKey, float log2Time) {}
 
 void Voice::restartPortaTo(float sourceKey, uint16_t newKey, float log2Time, float portaFrac) {}
 
-} // namespace synthtemplate
-} // namespace david303ttl
+} // namespace david303ttl::synthtemplate

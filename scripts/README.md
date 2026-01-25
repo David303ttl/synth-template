@@ -6,22 +6,20 @@ This directory contains utility scripts for maintaining and configuring the proj
 
 | Script | Language | Purpose |
 |--------|----------|---------|
-| `fix_code.sh` | Shell | Run nearly all fix scripts in sequence |
-| `fix_file_comments.pl` | Perl | Update file header comments |
-| `fix_header_guards.pl` | Perl | Fix header guard naming |
-| `fix_namespace.pl` | Perl | Migrate namespaces |
+| `fix_code.py` | Python | Run nearly all fix scripts in sequence |
+| `fix_file_comments.py` | Python | Update file header comments |
+| `fix_header_guards.py` | Python | Fix header guard naming |
+| `fix_namespace.py` | Python | Migrate namespaces |
 
 ---
 
-## fix_code.sh
+## fix_code.py
 
-**Purpose**: Convenience script that runs `fix_header_guards.pl` and `fix_file_comments.pl` in sequence.
+**Purpose**: Convenience script that runs `fix_header_guards.py` and `fix_file_comments.py` in sequence.
 
 **Usage**:
 ```bash
-./scripts/fix_code.sh
-# or
-sh scripts/fix_code.sh
+python scripts/fix_code.py
 ```
 
 **What it does**:
@@ -30,50 +28,29 @@ sh scripts/fix_code.sh
 
 ---
 
-## fix_file_comments.pl
+## fix_file_comments.py
 
 **Purpose**: Standardizes file header comments with copyright and license information.
 
 **Usage**:
 ```bash
-perl scripts/fix_file_comments.pl
+python scripts/fix_file_comments.py
 ```
 
 **What it does**:
 - Recursively processes all `.h` and `.cpp` files in `src/` and `tests/`
-- Replaces existing header comments with the standard project header
-- Applies `clang-format` to each file after processing
-
-**File header format**:
-```cpp
-/*
- * Synth Template
- *
- * Based on SideQuest Starting Point by baconpaul, adopted by david.
- *
- * Copyright 2024-2026, David303ttl and Various authors, as described in the github
- * transaction log.
- *
- * This source repo is released under the MIT license, but has
- * GPL3 dependencies, as such the combined work will be
- * released under GPL3.
- *
- * The source code and license are at https://github.com/David303ttl/synth-template
- * Original template at https://github.com/baconpaul/sidequest-startingpoint
- */
-```
-
-**Note**: Edit the `$header` variable in the script to change the default header text.
+- Replaces the leading header comment with the standard project header
+- Runs `clang-format` if it is available on `PATH` (disable with `--no-format`)
 
 ---
 
-## fix_header_guards.pl
+## fix_header_guards.py
 
 **Purpose**: Standardizes C++ header guard naming across the project.
 
 **Usage**:
 ```bash
-perl scripts/fix_header_guards.pl
+python scripts/fix_header_guards.py
 ```
 
 **What it does**:
@@ -84,7 +61,7 @@ perl scripts/fix_header_guards.pl
 
 **Naming convention**:
 - Converts file path like `src/engine/voice.h` to `DAVID303TTL_SYNTH_ENGINE_VOICE_H`
-- Format: `{NAMESPACE}_{PROJECT}_{PATH_WITH_UNDERSCORES}_H`
+- Legacy behavior is: replace the first `src` path token with `david303ttl_synth` and then uppercase
 
 **Example**:
 ```cpp
@@ -98,58 +75,34 @@ perl scripts/fix_header_guards.pl
 #endif // DAVID303TTL_SYNTH_ENGINE_VOICE_H
 ```
 
-**Note**: The namespace prefix (`DAVID303TTL_SYNTH`) is hardcoded in the script. Modify line 32 to change it.
+**Override the guard token**:
+```bash
+python scripts/fix_header_guards.py --src-token yourname_yourproject
+```
 
 ---
 
-## fix_namespace.pl
+## fix_namespace.py
 
 **Purpose**: Universal namespace migration tool. Detects current namespaces and converts them to new names.
 
 **Usage**:
 ```bash
-# Interactive mode (prompts for both namespaces)
-perl scripts/fix_namespace.pl
+# Change first namespace only (keeps second)
+python scripts/fix_namespace.py yourname
 
-# Change first namespace only
-perl scripts/fix_namespace.pl yourname
-
-# Change both namespaces
-perl scripts/fix_namespace.pl yourname yourproject
+# Change both namespace levels
+python scripts/fix_namespace.py yourname yourproject
 ```
 
 **What it does**:
 - Auto-detects the current two-level namespace structure (e.g., `david303ttl::synthtemplate`)
-- Replaces namespace declarations: `namespace oldname {` → `namespace newname {`
-- Replaces namespace references: `oldname::subname::` → `newname::subname::`
+- Replaces namespace declarations (both styles):
+  - `namespace oldname {` → `namespace newname {`
+  - `namespace oldname::oldproject {` → `namespace newname::newproject {`
+- Replaces namespace references: `oldname::oldproject::` → `newname::newproject::`
 - Updates namespace aliases: `namespace alias = oldname::...` → `namespace alias = newname::...`
-- Updates plugin ID in `src/engine/patch.h`
-- Fixes multi-level namespace closing braces (puts each brace on its own line)
-
-**Examples**:
-
-```bash
-# Detect current namespace and change first level
-perl scripts/fix_namespace.pl yourname
-# Changes: david303ttl::synthtemplate → yourname::synthtemplate
-
-# Change both namespace levels
-perl scripts/fix_namespace.pl myname myproject
-# Changes: david303ttl::synthtemplate → myname::myproject
-```
-
-**What gets changed**:
-
-| Pattern | Example Transformation |
-|---------|------------------------|
-| Namespace declaration | `namespace david303ttl {` → `namespace yourname {` |
-| Namespace declaration | `namespace synthtemplate {` → `namespace myproject {` |
-| Namespace reference | `david303ttl::synthtemplate::` → `yourname::myproject::` |
-| Closing comment | `} // namespace david303ttl` → `} // namespace yourname` |
-| Plugin ID | `org.david303ttl.synthtemplate` → `org.yourname.myproject` |
-| Namespace alias | `namespace bpss = david303ttl::...` → `namespace bpss = yourname::...` |
-
-**Files modified**: All `.h` and `.cpp` files in `src/` and `tests/` (typically ~20 files)
+- Updates plugin IDs like `org.oldname.oldproject` → `org.newname.newproject`
 
 **After running**:
 1. Review changes with `git diff`
@@ -163,5 +116,5 @@ perl scripts/fix_namespace.pl myname myproject
 1. **Always review changes** with `git diff` before committing
 2. **Test build** after namespace migration to ensure everything compiles
 3. **Backup** or commit your work before running these scripts on a production codebase
-4. **Run `fix_code.sh`** after cloning to standardize the codebase
+4. **Run `python scripts/fix_code.py`** after cloning to standardize the codebase
 

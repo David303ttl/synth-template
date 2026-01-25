@@ -15,12 +15,10 @@
  */
 
 #include "patch.h"
-namespace david303ttl {
-namespace synthtemplate {
+namespace david303ttl::synthtemplate {
 
 float Patch::migrateParamValueFromVersion(Param *p, float value, uint32_t version) { return value; }
 
 void Patch::migratePatchFromVersion(uint32_t version) {}
 
-} // namespace synthtemplate
-} // namespace david303ttl
+} // namespace david303ttl::synthtemplate

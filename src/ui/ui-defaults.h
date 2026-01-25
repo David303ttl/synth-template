@@ -20,9 +20,7 @@
 #include "configuration.h"
 #include <sst/plugininfra/userdefaults.h>
 
-namespace david303ttl {
-namespace synthtemplate {
-namespace ui {
+namespace david303ttl::synthtemplate::ui {
 enum Defaults
 {
     useLightSkin,
@@ -51,8 +49,6 @@ inline std::string defaultName(Defaults d)
 }
 
 using defaultsProvder_t = sst::plugininfra::defaults::Provider<Defaults, Defaults::numDefaults>;
-} // namespace ui
-} // namespace synthtemplate
-} // namespace david303ttl
+} // namespace david303ttl::synthtemplate::ui
 
 #endif // UI_DEFAULTS_H

@@ -22,9 +22,7 @@
 #include "engine/patch.h"
 #include "engine/engine.h"
 
-namespace david303ttl {
-namespace synthtemplate {
-namespace ui {
+namespace david303ttl::synthtemplate::ui {
 
 struct PresetDataBinding : sst::jucegui::data::Discrete
 {
@@ -162,8 +160,6 @@ struct PresetDataBinding : sst::jucegui::data::Discrete
         }
     }
 };
-} // namespace ui
-} // namespace synthtemplate
-} // namespace david303ttl
+} // namespace david303ttl::synthtemplate::ui
 
 #endif

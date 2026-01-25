@@ -36,8 +36,7 @@
 
 #include <clapwrapper/vst3.h>
 
-namespace david303ttl {
-namespace synthtemplate {
+namespace david303ttl::synthtemplate {
 
 extern const clap_plugin_descriptor *getDescriptor();
 
@@ -427,8 +426,7 @@ const clap_plugin *makePlugin(const clap_host *h, bool multiOut)
         return res->clapPlugin();
     }
 }
-} // namespace synthtemplate
-} // namespace david303ttl
+} // namespace david303ttl::synthtemplate
 
 namespace chlp = clap::helpers;
 namespace bpss = david303ttl::synthtemplate::clapimpl;

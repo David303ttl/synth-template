@@ -42,9 +42,7 @@
 namespace jcmp = sst::jucegui::components;
 namespace jdat = sst::jucegui::data;
 
-namespace david303ttl {
-namespace synthtemplate {
-namespace ui {
+namespace david303ttl::synthtemplate::ui {
 
 struct MainPanel;
 
@@ -138,7 +136,5 @@ struct HasEditor
     PluginEditor &editor;
     HasEditor(PluginEditor &e) : editor(e) {}
 };
-} // namespace ui
-} // namespace synthtemplate
-} // namespace david303ttl
+} // namespace david303ttl::synthtemplate::ui
 #endif

@@ -38,8 +38,7 @@
 
 #include "sst/basic-blocks/dsp/LagCollection.h"
 
-namespace david303ttl {
-namespace synthtemplate {
+namespace david303ttl::synthtemplate {
 struct Engine
 {
     float output alignas(16)[2][blockSize];
@@ -293,6 +292,5 @@ struct Engine
 
     const clap_host_t *clapHost{nullptr};
 };
-} // namespace synthtemplate
-} // namespace david303ttl
+} // namespace david303ttl::synthtemplate
 #endif // SYNTH_H

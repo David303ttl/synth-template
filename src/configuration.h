@@ -47,16 +47,14 @@
     };
 #endif
 
-namespace david303ttl {
-namespace synthtemplate {
+namespace david303ttl::synthtemplate {
 
 static constexpr size_t blockSize{8};
 static constexpr size_t maxVoices{128};
 
 extern int debugLevel;
 
-} // namespace synthtemplate
-} // namespace david303ttl
+} // namespace david303ttl::synthtemplate
 
 inline std::string fileTrunc(const std::string &f)
 {

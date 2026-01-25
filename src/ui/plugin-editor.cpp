@@ -27,9 +27,7 @@
 #include "patch-data-bindings.h"
 #include "main-panel.h"
 
-namespace david303ttl {
-namespace synthtemplate {
-namespace ui {
+namespace david303ttl::synthtemplate::ui {
 struct IdleTimer : juce::Timer
 {
     PluginEditor &editor;
@@ -817,6 +815,4 @@ void PluginEditor::onStyleChanged()
         lnf->setStyle(style());
 }
 
-} // namespace ui
-} // namespace synthtemplate
-} // namespace david303ttl
+} // namespace david303ttl::synthtemplate::ui

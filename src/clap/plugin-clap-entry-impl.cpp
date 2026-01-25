@@ -26,8 +26,7 @@
 #include <string.h>
 #include <clap/clap.h>
 
-namespace david303ttl {
-namespace synthtemplate {
+namespace david303ttl::synthtemplate {
 
 extern const clap_plugin *makePlugin(const clap_host *, bool);
 
@@ -117,5 +116,4 @@ bool clap_init(const char *p)
     return true;
 }
 void clap_deinit() {}
-} // namespace synthtemplate
-} // namespace david303ttl
+} // namespace david303ttl::synthtemplate

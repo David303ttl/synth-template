@@ -27,8 +27,7 @@ struct MTSClient;
 #define M_PI 3.14159265358979323846
 #endif
 
-namespace david303ttl {
-namespace synthtemplate {
+namespace david303ttl::synthtemplate {
 struct Patch;
 
 struct Voice
@@ -119,6 +118,5 @@ struct Voice
 
     const float &pitch, &harmlev;
 };
-} // namespace synthtemplate
-} // namespace david303ttl
+} // namespace david303ttl::synthtemplate
 #endif // VOICE_H

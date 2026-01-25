@@ -18,9 +18,7 @@
 #include "plugin-editor.h"
 #include "patch-data-bindings.h"
 
-namespace david303ttl {
-namespace synthtemplate {
-namespace ui {
+namespace david303ttl::synthtemplate::ui {
 
 MainPanel::MainPanel(PluginEditor &e)
     : sst::jucegui::components::NamedPanel("Main Panel"), editor(e)
@@ -55,6 +53,4 @@ void MainPanel::resized()
     }
 }
 
-} // namespace ui
-} // namespace synthtemplate
-} // namespace david303ttl
+} // namespace david303ttl::synthtemplate::ui
